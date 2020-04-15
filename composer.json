@@ -1,7 +1,7 @@
 {
     "name": "bramesposito/bootstrap-core-blocks",
     "description": "Alter Wordpress Gutenberg blocks so they can be used with Bootstrap",
-    "type": "library",
+    "type": "wordpress-plugin",
     "license": "GPL-3.0",
     "authors": [
         {
