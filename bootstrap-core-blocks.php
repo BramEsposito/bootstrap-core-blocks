@@ -3,7 +3,7 @@
 Plugin Name: Bootstrap Core Blocks
 Plugin URI: https://github.com/BramEsposito/bootstrap-core-blocks
 Description: Make existing Gutenberg blocks compatible with Bootstrap
-Version: 1.0
+Version: 1.2.1
 Author: Bram Esposito
 Author URI: https://www.bramesposito.com
 License: GPL-3.0+
@@ -44,4 +44,7 @@ add_filter( 'render_block', function( $block_content, $block ) {
   return $block_content;
 }, 10, 2 );
 
-require_once ("admin.php");
+add_action('wp_loaded', function() {
+  require_once (plugin_dir_path( __FILE__ )."/admin.php");
+});
+
