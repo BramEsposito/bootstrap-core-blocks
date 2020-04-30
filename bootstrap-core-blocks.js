@@ -6,6 +6,7 @@ wp.domReady( function() {
    * @return {Boolean}          true if block has a parent, false if it is a root block
    */
   const blockHasParent = ( clientId ) => clientId !== wp.data.select( 'core/block-editor' ).getBlockHierarchyRootClientId( clientId );
+  const getPostType = () => wp.data.select('core/editor').getCurrentPostType();
 
   var el = wp.element.createElement;
 
@@ -17,6 +18,16 @@ wp.domReady( function() {
   var withInspectorControls = wp.compose.createHigherOrderComponent( function( BlockEdit ) {
     return function( props ) {
 
+      if ( !bcb.posttypes.hasOwnProperty(getPostType()) ) {
+        props.setAttributes( { bootstrapContainer: "not set" } );
+        return el(
+            wp.element.Fragment,
+            {},
+            el(
+                BlockEdit,
+                props
+            ));
+      }
       if(blockHasParent(props.clientId)) {
         props.setAttributes( { bootstrapContainer: "not set" } );
         return el(

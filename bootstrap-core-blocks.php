@@ -16,12 +16,18 @@ Domain Path: /languages
  * @return [type] [description]
  */
 function bcb_enqueue() {
-  wp_enqueue_script(
+  wp_register_script(
     'bcb-script',
     plugins_url( 'bootstrap-core-blocks.js', __FILE__ ),
     array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post' ),
     filemtime( plugin_dir_path( __FILE__ ) . '/bootstrap-core-blocks.js' )
   );
+  wp_localize_script(
+    'bcb-script',
+    'bcb',
+    get_option("bootstrap-core-blocks", ['posttypes' => []])
+  );
+  wp_enqueue_script( 'bcb-script' );
 }
 
 add_action( 'enqueue_block_editor_assets', 'bcb_enqueue' );
@@ -37,3 +43,5 @@ add_filter( 'render_block', function( $block_content, $block ) {
   }
   return $block_content;
 }, 10, 2 );
+
+require_once ("admin.php");
