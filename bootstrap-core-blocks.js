@@ -17,7 +17,11 @@ wp.domReady( function() {
    */
   var withInspectorControls = wp.compose.createHigherOrderComponent( function( BlockEdit ) {
     return function( props ) {
-
+        
+        if (props.name.indexOf('acf/') === 0) {
+            return el(BlockEdit, props);
+        }
+        
       if ( !bcb.posttypes.hasOwnProperty(getPostType()) ) {
         props.setAttributes( { bootstrapContainer: "not set" } );
         return el(
